@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&family=Macondo&family=Ms+Madi&family=Roboto+Flex:opsz,wght@8..144,100&family=Roboto:wght@100&family=Square+Peg&family=Updock&family=Whisper&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Fascinate', cursive;
+}
+
+form {
+    display: flex;
+    flex-flow: column wrap;
+    background-color: darkseagreen;
+    justify-content: center;
+    align-items: center;
+}
+
+form .row {
+    margin-top: 1em;
+}
