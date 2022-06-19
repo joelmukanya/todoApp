@@ -2,7 +2,7 @@
 Load data from the local storage or provide a default data set with at least one record. 
 And save it to an array called "lists".
 */
-// localStorage.removeItem('items');
+localStorage.removeItem('items');
 let lists = JSON.parse( localStorage.getItem('items')) ? 
 JSON.parse( localStorage.getItem('items')) : [
     {
@@ -13,22 +13,26 @@ JSON.parse( localStorage.getItem('items')) : [
 ];
 // Add item
 function addItems() {
-    let list = document.getElementById('list-content').innerText;
-    console.log(list)
-    // Fetch the last index of id
-    let index = parseInt(lists.map((item)=> {
-        return item.id;
-    })) + 1;
-    // Add a new item
-    lists.push(
-        {
-            id: index !== undefined ? index : 1 , 
-            item: list,
-            createdDate: new Date()
-        }
-    );
-    // Save new data to the localstorage
-    localStorage.setItem('items', JSON.stringify(lists));
+    try{
+        let list = document.getElementById('list-content').value;
+        console.log(list)
+        // Fetch the last index of id
+        let index = parseInt(lists.map((item)=> {
+            return item.id;
+        })) + 1;
+        // Add a new item
+        lists.push(
+            {
+                id: index !== undefined ? index : 1 , 
+                item: list,
+                createdDate: new Date()
+            }
+        );
+        // Save new data to the localstorage
+        localStorage.setItem('items', JSON.stringify(lists));    
+    }catch(e) {
+        console.log(e.message);
+    }
 }
 // Load data
 function loadFromLocalStorage() {
