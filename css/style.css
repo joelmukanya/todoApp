@@ -6,18 +6,37 @@
     box-sizing: border-box;
 }
 
-h1 {
-    font-family: 'Fascinate', cursive;
-}
-
-form {
-    display: flex;
-    flex-flow: column wrap;
-    background-color: darkseagreen;
-    justify-content: center;
-    align-items: center;
-}
-
-form .row {
+form{
+    margin: auto;
     margin-top: 1em;
+    box-shadow: 2em 1em 2em darkslategrey;
+}
+
+.row #addItem {
+    float: right;
+}
+
+.row #item-wrapper {
+    background-color: rgb(139, 176, 176);
+    width: 50%;
+}
+
+/* list */
+.list-unstyled {
+    height: 3em;
+    padding-top: .5em;
+}
+ul#item-wrapper .list-unstyled:hover .list-icon {
+    display: inline-block;
+}
+
+.list-content {
+   text-align: center;
+   margin-left: 2em;
+}
+
+.list-icon {
+    float: right;
+    top: -1;
+    display: none;
 }
