@@ -2,7 +2,6 @@
 Load data from the local storage or provide a default data set with at least one record. 
 And save it to an array called "lists".
 */
-localStorage.removeItem('items');
 let lists = JSON.parse( localStorage.getItem('items')) ? 
 JSON.parse( localStorage.getItem('items')) : [
     {
@@ -37,12 +36,12 @@ function addItems() {
 // Load data
 function loadFromLocalStorage() {
     console.log(lists);
-    lists.forEach( (item)=> {
+    lists.forEach( (item, index)=> {
         document.querySelector('#item-wrapper').innerHTML += 
         `
         <li class="bg-gradient list-unstyled">
-        <input type="checkbox" class="chkItem form-check-input" id="chkItem" >
-        <span class="list-content">
+        <input type="checkbox" class="chkItem form-check-input" id="${index}" >
+        <span class="list-content" id="${index}">
             ${item.item}
         </span>
         <i class="bi bi-x-octagon-fill list-icon"></i>
@@ -53,6 +52,18 @@ function loadFromLocalStorage() {
 
 // Load data
 loadFromLocalStorage();
+
+const chkItem = document.querySelectorAll('.chkItem');
+chkItem.forEach( (item, index) => {
+    item.addEventListener('click', ()=> {
+        if(item.checked) {
+            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
+        }else {
+            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.remove('addLine');
+        }  
+    });
+    
+})
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);

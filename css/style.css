@@ -26,6 +26,10 @@ form{
     height: 3em;
     padding-top: .5em;
 }
+.addLine{
+    text-decoration: line-through ;
+}
+
 ul#item-wrapper .list-unstyled:hover .list-icon {
     display: inline-block;
 }
