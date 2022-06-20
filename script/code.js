@@ -2,7 +2,7 @@
 Load data from the local storage or provide a default data set with at least one record. 
 And save it to an array called "lists".
 */
-let lists = JSON.parse( localStorage.getItem('items')) ? 
+let lists = JSON.parse(localStorage.getItem('items')) ? 
 JSON.parse( localStorage.getItem('items')) : [
     {
         id: 1,
@@ -22,7 +22,7 @@ function addItems() {
         // Add a new item
         lists.push(
             {
-                id: index !== undefined ? index : 1 , 
+                id: index !== undefined ? index : 0 , 
                 item: list,
                 createdDate: new Date()
             }
@@ -39,7 +39,7 @@ function loadFromLocalStorage() {
     lists.forEach( (item, index)=> {
         document.querySelector('#item-wrapper').innerHTML += 
         `
-        <li class="bg-gradient list-unstyled">
+        <li class="bg-gradient list-unstyled" id="${index}">
         <input type="checkbox" class="chkItem form-check-input" id="${index}" >
         <span class="list-content" id="${index}">
             ${item.item}
@@ -67,3 +67,19 @@ chkItem.forEach( (item, index) => {
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);
+// Sorting
+const btnSorting = document.querySelector('#sorting');
+btnSorting.addEventListener('click', ()=> {
+    lists.sort( (a, b)=> {
+        return (a.item < b.name) ? -1: 0; 
+    });
+});
+// Remove an item
+(function removeItem() {
+    let btnClose = document.querySelectorAll('.list-icon');
+    btnClose.forEach( (item, index)=> {
+        item.addEventListener('click', ()=>{
+            delete lists[index];
+        });
+    });
+})();
