@@ -2,6 +2,7 @@
 Load data from the local storage or provide a default data set with at least one record. 
 And save it to an array called "lists".
 */
+// localStorage.removeItem('items');
 let lists = JSON.parse(localStorage.getItem('items')) ? 
 JSON.parse( localStorage.getItem('items')) : [
     {
@@ -22,7 +23,7 @@ function addItems() {
         // Add a new item
         lists.push(
             {
-                id: index !== undefined ? index : 0 , 
+                id: index !== undefined ? index : 1 , 
                 item: list,
                 createdDate: new Date()
             }
@@ -50,9 +51,6 @@ function loadFromLocalStorage() {
     } );
 }
 
-// Load data
-loadFromLocalStorage();
-
 const chkItem = document.querySelectorAll('.chkItem');
 chkItem.forEach( (item, index) => {
     item.addEventListener('click', ()=> {
@@ -61,8 +59,7 @@ chkItem.forEach( (item, index) => {
         }else {
             document.querySelectorAll('.list-content')[parseInt(item.id)].classList.remove('addLine');
         }  
-    });
-    
+    }); 
 })
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
@@ -73,13 +70,12 @@ btnSorting.addEventListener('click', ()=> {
     lists.sort( (a, b)=> {
         return (a.item < b.name) ? -1: 0; 
     });
+
 });
 // Remove an item
-(function removeItem() {
-    let btnClose = document.querySelectorAll('.list-icon');
-    btnClose.forEach( (item, index)=> {
-        item.addEventListener('click', ()=>{
-            delete lists[index];
-        });
-    });
-})();
+function removeItem(id) {
+
+}
+
+// Load data
+loadFromLocalStorage();
