@@ -34,15 +34,16 @@ function addItems() {
         console.log(e.message);
     }
 }
+// Papa code: 745/22
 // Load data
 function loadFromLocalStorage() {
     console.log(lists);
-    lists.forEach( (item, index)=> {
+    lists.forEach( (item)=> {
         document.querySelector('#item-wrapper').innerHTML += 
         `
-        <li class="bg-gradient list-unstyled" id="${index}">
-        <input type="checkbox" class="chkItem form-check-input" id="${index}" >
-        <span class="list-content" id="${index}">
+        <li class="bg-gradient list-unstyled" id="${item.id}">
+        <input type="checkbox" class="chkItem form-check-input" id="${item.id}" >
+        <span class="list-content" id="${item.id}">
             ${item.item}
         </span>
         <i class="bi bi-x-octagon-fill list-icon"></i>
@@ -51,9 +52,11 @@ function loadFromLocalStorage() {
     } );
 }
 
+// Event
 const chkItem = document.querySelectorAll('.chkItem');
-chkItem.forEach( (item, index) => {
+chkItem.forEach( (item) => {
     item.addEventListener('click', ()=> {
+        console.log('Hello');
         if(item.checked) {
             document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
         }else {
@@ -70,12 +73,19 @@ btnSorting.addEventListener('click', ()=> {
     lists.sort( (a, b)=> {
         return (a.item < b.name) ? -1: 0; 
     });
-
+    // Save new data to the localstorage
+    localStorage.setItem('items', JSON.stringify(lists));    
 });
 // Remove an item
 function removeItem(id) {
-
+    lists.splice(id, 1); 
+    // Apply the change
+    localStorage.setItem('items', JSON.stringify(lists));    
 }
-
+// 
+const iClose = document.querySelectorAll('.list-icon');
+iClose.forEach( (item, index)=> {
+    item[index].addEventListener('click', removeItem);
+});
 // Load data
 loadFromLocalStorage();
