@@ -52,17 +52,6 @@ function loadFromLocalStorage() {
     } );
 }
 
-// Event
-const chkItem = document.querySelectorAll('.chkItem');
-chkItem.forEach( (item) => {
-    item.addEventListener('click', ()=> {
-        if(item.checked) {
-            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
-        }else {
-            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.remove('addLine');
-        }  
-    }); 
-})
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);
@@ -74,6 +63,19 @@ btnSorting.addEventListener('click', ()=> {
     });
     // Save new data to the localstorage
     localStorage.setItem('items', JSON.stringify(lists));    
+});
+// Check item
+// Event
+const chkItem = document.querySelectorAll('.chkItem');
+console.log(chkItem);
+chkItem.forEach( (item) => {
+    item.addEventListener('click', ()=> {
+        if(item.checked) {
+            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
+        }else {
+            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.remove('addLine');
+        }  
+    }); 
 });
 // Remove an item
 function removeItem(id) {
