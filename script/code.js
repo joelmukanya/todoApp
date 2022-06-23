@@ -17,9 +17,7 @@ function addItems() {
         let list = document.getElementById('list-content').value;
         console.log(list)
         // Fetch the last index of id
-        let index = parseInt(lists.map((item)=> {
-            return item.id;
-        })) + 1;
+        let index = lists.length + 1;
         // Add a new item
         lists.push(
             {
@@ -34,19 +32,16 @@ function addItems() {
         console.log(e.message);
     }
 }
-// Papa code: 745/22
 // Load data
 function loadFromLocalStorage() {
     console.log(lists);
-    lists.forEach( (item)=> {
+    lists.forEach( (item, index)=> {
         document.querySelector('#item-wrapper').innerHTML += 
         `
-        <li class="bg-gradient list-unstyled" id="${item.id}">
-        <input type="checkbox" class="chkItem form-check-input" id="${item.id}" >
-        <span class="list-content" id="${item.id}">
-            ${item.item}
-        </span>
-        <i class="bi bi-x-octagon-fill list-icon"></i>
+        <li class="bg-gradient list-unstyled" id="${index}">
+        <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
+        <span class="list-content">${item.item}</span>
+        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${item.id})" id="${index}"></i>
         </li>
         `;
     } );
@@ -55,38 +50,34 @@ function loadFromLocalStorage() {
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);
+// Checked
+function itemCompleted(id) {
+    if(document.querySelectorAll('.chkItem')[id].checked) {
+        document.querySelectorAll('.list-content')[id].classList.add('addLine');
+    }else {
+        document.querySelectorAll('.list-content')[id].classList.remove('addLine');
+    }
+}
 // Sorting
-const btnSorting = document.querySelector('#sorting');
-btnSorting.addEventListener('click', ()=> {
+document.querySelector('#sorting').addEventListener('click', ()=> {
     lists.sort( (a, b)=> {
-        return (a.item < b.name) ? -1: 0; 
+        return (a.item < b.item) ? -1: 0; 
     });
     // Save new data to the localstorage
     localStorage.setItem('items', JSON.stringify(lists));    
 });
-// Check item
-// Event
-const chkItem = document.querySelectorAll('.chkItem');
-console.log(chkItem);
-chkItem.forEach( (item) => {
-    item.addEventListener('click', ()=> {
-        if(item.checked) {
-            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
-        }else {
-            document.querySelectorAll('.list-content')[parseInt(item.id)].classList.remove('addLine');
-        }  
-    }); 
-});
-// Remove an item
+
 function removeItem(id) {
-    lists.splice(id, 1); 
-    // Apply the change
-    localStorage.setItem('items', JSON.stringify(lists));    
+    console.log(id);
+    if(id > -1) {
+        lists.splice(id, 1); 
+        // Apply the change
+        localStorage.setItem('items', JSON.stringify(lists));        
+    }else {
+        console.log('Name was not found')
+    }
 }
-// 
-const iClose = document.querySelectorAll('.list-icon');
-iClose.forEach( (item, index)=> {
-    item[index].addEventListener('click', removeItem);
-});
+// Delete
+// removeItem( lists.findIndex( item => item.id === 2));
 // Load data
 loadFromLocalStorage();
