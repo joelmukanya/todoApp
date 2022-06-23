@@ -41,7 +41,7 @@ function loadFromLocalStorage() {
         <li class="bg-gradient list-unstyled" id="${index}">
         <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
         <span class="list-content">${item.item}</span>
-        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${item.id})" id="${index}"></i>
+        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${index})" id="${index}"></i>
         </li>
         `;
     } );
@@ -68,7 +68,6 @@ document.querySelector('#sorting').addEventListener('click', ()=> {
 });
 
 function removeItem(id) {
-    console.log(id);
     if(id > -1) {
         lists.splice(id, 1); 
         // Apply the change
