@@ -56,7 +56,6 @@ function loadFromLocalStorage() {
 const chkItem = document.querySelectorAll('.chkItem');
 chkItem.forEach( (item) => {
     item.addEventListener('click', ()=> {
-        console.log('Hello');
         if(item.checked) {
             document.querySelectorAll('.list-content')[parseInt(item.id)].classList.add('addLine');
         }else {
