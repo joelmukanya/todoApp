@@ -13,9 +13,8 @@ JSON.parse( localStorage.getItem('items')) : [
 ];
 //
 document.addEventListener("DOMContentLoaded", ()=> {
-    loadFromLocalStorage();
+    readItems();
 });
-
 // Add item
 function addItems() {
     try{
@@ -36,10 +35,10 @@ function addItems() {
     }catch(e) {
         console.log(e.message);
     }
-    loadFromLocalStorage();
+    readItems();
 }
 // Load data
-function loadFromLocalStorage() {
+function readItems() {
     console.log(lists);
     lists.forEach( (item, index)=> {
         document.querySelector('#item-wrapper').innerHTML += 
@@ -71,9 +70,9 @@ document.querySelector('#sorting').addEventListener('click', ()=> {
     });
     // Save new data to the localstorage
     localStorage.setItem('items', JSON.stringify(lists));   
-    loadFromLocalStorage(); 
+    readItems(); 
 });
-
+    
 function removeItem(id) {
     if(id > -1) {
         lists.splice(id, 1); 
