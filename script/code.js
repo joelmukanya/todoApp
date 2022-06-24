@@ -11,6 +11,11 @@ JSON.parse( localStorage.getItem('items')) : [
         createdDate: new Date()
     }
 ];
+//
+document.addEventListener("DOMContentLoaded", ()=> {
+    loadFromLocalStorage();
+});
+
 // Add item
 function addItems() {
     try{
@@ -31,6 +36,7 @@ function addItems() {
     }catch(e) {
         console.log(e.message);
     }
+    loadFromLocalStorage();
 }
 // Load data
 function loadFromLocalStorage() {
@@ -64,7 +70,8 @@ document.querySelector('#sorting').addEventListener('click', ()=> {
         return (a.item < b.item) ? -1: 0; 
     });
     // Save new data to the localstorage
-    localStorage.setItem('items', JSON.stringify(lists));    
+    localStorage.setItem('items', JSON.stringify(lists));   
+    loadFromLocalStorage(); 
 });
 
 function removeItem(id) {
@@ -76,7 +83,3 @@ function removeItem(id) {
         console.log('Name was not found')
     }
 }
-// Delete
-// removeItem( lists.findIndex( item => item.id === 2));
-// Load data
-loadFromLocalStorage();
