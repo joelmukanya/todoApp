@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", ()=> {
 function addItems() {
     try{
         let list = document.getElementById('list-content').value;
-        console.log(list)
         // Fetch the last index of id
         let index = lists.length + 1;
         // Add a new item
@@ -39,9 +38,10 @@ function addItems() {
 }
 // Load data
 function readItems() {
-    console.log(lists);
+    let contents = document.querySelector('#item-wrapper');
+    contents.innerHTML = "";
     lists.forEach( (item, index)=> {
-        document.querySelector('#item-wrapper').innerHTML += 
+        contents.innerHTML += 
         `
         <li class="bg-gradient list-unstyled" id="${index}">
         <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
@@ -51,7 +51,6 @@ function readItems() {
         `;
     } );
 }
-
 // btnAddItem
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);
@@ -72,13 +71,12 @@ document.querySelector('#sorting').addEventListener('click', ()=> {
     localStorage.setItem('items', JSON.stringify(lists));   
     readItems(); 
 });
-    
+
 function removeItem(id) {
     if(id > -1) {
         lists.splice(id, 1); 
         // Apply the change
         localStorage.setItem('items', JSON.stringify(lists));        
-    }else {
-        console.log('Name was not found')
     }
+    readItems();
 }
